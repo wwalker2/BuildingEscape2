@@ -41,6 +41,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Keys")
 		AActor* Key2 = nullptr;
 
+	UPROPERTY(EditAnywhere, Category = "Keys")
+		AActor* Key3 = nullptr;
+
 	AActor* Owner = nullptr;
 
 	float GetTotalMassOfActorsOnPlate();
@@ -56,5 +59,7 @@ private:
 
 	bool Unlocked1 = false;
 	bool Unlocked2 = false;
+
+	int32 numOfItems = 0;
 	
 };
