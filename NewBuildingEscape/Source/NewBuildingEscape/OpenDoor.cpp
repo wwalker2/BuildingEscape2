@@ -72,12 +72,6 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 	return TotalMass;
 }
 
-TMap<FString, bool> UOpenDoor::MakeAList()
-{
-	TMap<FString, bool> CheckList;
-	CheckList.Add("SM_TableRound_4", false);
-	return CheckList;
-}
 
 bool UOpenDoor::ItemOnPlate1()
 {

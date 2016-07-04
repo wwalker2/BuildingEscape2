@@ -51,10 +51,7 @@ private:
 	UPROPERTY(EditAnywhere)
 		float TriggerMass = 30.f;
 
-	TMap<FString, bool> MakeAList();
-
 	bool ItemOnPlate1();
-
 	bool ItemOnPlate2();
 
 	bool Unlocked1 = false;
@@ -62,4 +59,6 @@ private:
 
 	int32 numOfItems = 0;
 	
+	TArray<AActor*> itemsList;
+	TArray<AActor*> winList;
 };
