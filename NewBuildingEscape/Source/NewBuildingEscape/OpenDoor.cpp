@@ -43,14 +43,6 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	//if (GetTotalMassOfActorsOnPlate() > TriggerMass) {
-	//	OnOpen.Broadcast();
-	//}
-
-	//else{
-	//	OnClose.Broadcast();
-	//}
-
 	if (ItemOnPlate1() == true) {
 		OnOpen.Broadcast();
 	}
@@ -60,46 +52,29 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	}
 }
 
-float UOpenDoor::GetTotalMassOfActorsOnPlate()
-{
-	float TotalMass = 0.f;
-
-	TArray<AActor*> OverlappingActors;
-	if (!PressurePlate) { return TotalMass; }
-	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
-
-	for (const auto& Actor : OverlappingActors)
-	{
-		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
-		UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Actor->GetName());
-	}
-
-	return TotalMass;
-}
-
-
 bool UOpenDoor::ItemOnPlate1()
 {
-
+	bool result = false;
 	TArray<AActor*> OverlappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 
 	for (int32 i = 0; i < OverlappingActors.Num(); i++)
 	{
-		if (OverlappingActors[0]->GetName().Equals(Key1->GetName())) {
+		int32 j = 0;
+		if (OverlappingActors[0]->GetName().Equals(winList[j]->GetName())) {
 			Unlocked1 = true;
-			UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Key1->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[j]->GetName());
+			j++;
+			if (OverlappingActors[0]->GetName().Equals(winList[j]->GetName())) {
+				Unlocked2 = true;
+				UE_LOG(LogTemp, Warning, TEXT("The next item is %s"), *winList[j]->GetName());
+			}
 		}
-
-		//if (OverlappingActors[0]->GetName().Equals(Key2->GetName())) {
-		//	Unlocked2 = true;
-		//	UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Key2->GetName());
-		//}
 	}
-	//if (Unlocked1 == true && Unlocked2 == true) {
-	//	result = true;
-	//}
-	return Unlocked1;
+	if (Unlocked1 == true && Unlocked2 == true) {
+		result = true;
+	}
+	return result;
 }
 
 bool UOpenDoor::ItemOnPlate2()
