@@ -61,4 +61,5 @@ private:
 	
 	TArray<AActor*> itemsList;
 	TArray<AActor*> winList;
+	void fillWinList();
 };

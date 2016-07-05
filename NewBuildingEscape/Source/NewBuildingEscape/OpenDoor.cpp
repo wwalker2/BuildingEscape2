@@ -29,6 +29,11 @@ void UOpenDoor::BeginPlay()
 	numOfItems = FMath::RandRange(1, 3);
 	UE_LOG(LogTemp, Warning, TEXT("%d is the random number"), numOfItems);
 
+	itemsList.Add(Key1);
+	itemsList.Add(Key2);
+	itemsList.Add(Key3);
+
+	fillWinList();
 }
 
 
@@ -112,3 +117,11 @@ bool UOpenDoor::ItemOnPlate2()
 	return Unlocked2;
 }
 
+void UOpenDoor::fillWinList()
+{
+	while(winList.Num() < numOfItems) {
+		int32 select = FMath::RandRange(0, 2);
+		winList.AddUnique(itemsList[select]);
+		UE_LOG(LogTemp, Warning, TEXT("%s is a Win Item"), *winList[0]->GetName());
+	}
+}
