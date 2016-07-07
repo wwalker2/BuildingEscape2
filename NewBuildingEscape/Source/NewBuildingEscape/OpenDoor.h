@@ -47,7 +47,6 @@ private:
 	AActor* Owner = nullptr;
 
 	bool ItemOnPlate1();
-	bool ItemOnPlate2();
 
 	bool Unlocked1 = false;
 	bool Unlocked2 = false;

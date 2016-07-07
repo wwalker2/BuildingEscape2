@@ -65,38 +65,25 @@ bool UOpenDoor::ItemOnPlate1()
 			Unlocked1 = true;
 			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[j]->GetName());
 			j++;
-			if (OverlappingActors[0]->GetName().Equals(winList[j]->GetName())) {
-				Unlocked2 = true;
-				UE_LOG(LogTemp, Warning, TEXT("The next item is %s"), *winList[j]->GetName());
-			}
 		}
+		//if (OverlappingActors[1]->GetName().Equals(winList[j]->GetName())) {
+		//	Unlocked2 = true;
+		//	UE_LOG(LogTemp, Warning, TEXT("The next item is %s"), *winList[j]->GetName());
+		//}
 	}
-	if (Unlocked1 == true && Unlocked2 == true) {
-		result = true;
-	}
-	return result;
-}
-
-bool UOpenDoor::ItemOnPlate2()
-{
-	TArray<AActor*> OverlappingActors;
-	PressurePlate2->GetOverlappingActors(OUT OverlappingActors);
-
-	for (int32 i = 0; i < OverlappingActors.Num(); i++)
-	{
-		if (OverlappingActors[0]->GetName().Equals(Key1->GetName())) {
-			Unlocked2 = true;
-			UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate 2"), *Key1->GetName());
-		}
-	}
-	return Unlocked2;
+	//if (Unlocked1 == true && Unlocked2 == true) {
+	//	result = true;
+	//}
+	return Unlocked1;
 }
 
 void UOpenDoor::fillWinList()
 {
+	int i = 0;
 	while(winList.Num() < numOfItems) {
 		int32 select = FMath::RandRange(0, 2);
 		winList.AddUnique(itemsList[select]);
-		UE_LOG(LogTemp, Warning, TEXT("%s is a Win Item"), *winList[0]->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("%s is a Win Item"), *winList[i]->GetName());
+		i++;
 	}
 }
