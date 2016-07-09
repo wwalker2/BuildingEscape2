@@ -46,13 +46,7 @@ private:
 
 	AActor* Owner = nullptr;
 
-	float GetTotalMassOfActorsOnPlate();
-
-	UPROPERTY(EditAnywhere)
-		float TriggerMass = 30.f;
-
 	bool ItemOnPlate1();
-	bool ItemOnPlate2();
 
 	bool Unlocked1 = false;
 	bool Unlocked2 = false;
@@ -61,4 +55,5 @@ private:
 	
 	TArray<AActor*> itemsList;
 	TArray<AActor*> winList;
+	void fillWinList();
 };

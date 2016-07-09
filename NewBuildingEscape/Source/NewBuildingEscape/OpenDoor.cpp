@@ -29,6 +29,11 @@ void UOpenDoor::BeginPlay()
 	numOfItems = FMath::RandRange(1, 3);
 	UE_LOG(LogTemp, Warning, TEXT("%d is the random number"), numOfItems);
 
+	itemsList.Add(Key1);
+	itemsList.Add(Key2);
+	itemsList.Add(Key3);
+
+	fillWinList();
 }
 
 
@@ -37,14 +42,6 @@ void UOpenDoor::BeginPlay()
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	//if (GetTotalMassOfActorsOnPlate() > TriggerMass) {
-	//	OnOpen.Broadcast();
-	//}
-
-	//else{
-	//	OnClose.Broadcast();
-	//}
 
 	if (ItemOnPlate1() == true) {
 		OnOpen.Broadcast();
@@ -55,27 +52,9 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	}
 }
 
-float UOpenDoor::GetTotalMassOfActorsOnPlate()
-{
-	float TotalMass = 0.f;
-
-	TArray<AActor*> OverlappingActors;
-	if (!PressurePlate) { return TotalMass; }
-	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
-
-	for (const auto& Actor : OverlappingActors)
-	{
-		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
-		UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Actor->GetName());
-	}
-
-	return TotalMass;
-}
-
-
 bool UOpenDoor::ItemOnPlate1()
 {
-
+	bool result = false;
 	TArray<AActor*> OverlappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 
@@ -83,13 +62,15 @@ bool UOpenDoor::ItemOnPlate1()
 	{
 		if (OverlappingActors[0]->GetName().Equals(Key1->GetName())) {
 			Unlocked1 = true;
-			UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Key1->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[i]->GetName());
 		}
-
-		//if (OverlappingActors[0]->GetName().Equals(Key2->GetName())) {
+		//if (OverlappingActors[1]->GetName().Equals(winList[j]->GetName())) {
 		//	Unlocked2 = true;
-		//	UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Key2->GetName());
+		//	UE_LOG(LogTemp, Warning, TEXT("The next item is %s"), *winList[j]->GetName());
 		//}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("That is the wrong item."));
+		}
 	}
 	//if (Unlocked1 == true && Unlocked2 == true) {
 	//	result = true;
@@ -97,18 +78,13 @@ bool UOpenDoor::ItemOnPlate1()
 	return Unlocked1;
 }
 
-bool UOpenDoor::ItemOnPlate2()
+void UOpenDoor::fillWinList()
 {
-	TArray<AActor*> OverlappingActors;
-	PressurePlate2->GetOverlappingActors(OUT OverlappingActors);
-
-	for (int32 i = 0; i < OverlappingActors.Num(); i++)
-	{
-		if (OverlappingActors[0]->GetName().Equals(Key1->GetName())) {
-			Unlocked2 = true;
-			UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate 2"), *Key1->GetName());
-		}
+	int i = 0;
+	while(winList.Num() < numOfItems) {
+		int32 select = FMath::RandRange(0, 2);
+		winList.AddUnique(itemsList[select]);
+		UE_LOG(LogTemp, Warning, TEXT("%s is a Win Item"), *winList[i]->GetName());
+		i++;
 	}
-	return Unlocked2;
 }
-
