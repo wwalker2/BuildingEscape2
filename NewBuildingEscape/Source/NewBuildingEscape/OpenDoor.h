@@ -50,6 +50,7 @@ private:
 
 	bool Unlocked1 = false;
 	bool Unlocked2 = false;
+	bool Unlocked3 = false;
 
 	int32 numOfItems = 0;
 	

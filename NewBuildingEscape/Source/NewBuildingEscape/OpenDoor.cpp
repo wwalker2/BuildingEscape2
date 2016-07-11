@@ -60,15 +60,22 @@ bool UOpenDoor::ItemOnPlate1()
 
 	for (int32 i = 0; i < OverlappingActors.Num(); i++)
 	{
-		if (OverlappingActors[0]->GetName().Equals(Key1->GetName())) {
+		// Add "&& numOfItems >= 1
+		if (OverlappingActors[0]->GetName().Equals(winList[0]->GetName()) && numOfItems >= 1) {
 			Unlocked1 = true;
 			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[0]->GetName());
+		} else if (OverlappingActors[1]->GetName().Equals(winList[1]->GetName()) && numOfItems >= 2) {
+			Unlocked2 = true;
+			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[1]->GetName());
+		} else if (OverlappingActors[2]->GetName().Equals(winList[2]->GetName()) && numOfItems >= 3) {
+			Unlocked3 = true;
+			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[2]->GetName());
 		}
 		else {
 			UE_LOG(LogTemp, Warning, TEXT("That is the wrong item."));
 		}
 	}
-	//if (Unlocked1 == true && Unlocked2 == true) {
+	//if (Unlocked1 == true && Unlocked2 == true && Unlocked3 == true) {
 	//	result = true;
 	//}
 	return Unlocked1;
