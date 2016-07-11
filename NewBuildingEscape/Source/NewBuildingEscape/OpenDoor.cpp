@@ -62,12 +62,8 @@ bool UOpenDoor::ItemOnPlate1()
 	{
 		if (OverlappingActors[0]->GetName().Equals(Key1->GetName())) {
 			Unlocked1 = true;
-			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[i]->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[0]->GetName());
 		}
-		//if (OverlappingActors[1]->GetName().Equals(winList[j]->GetName())) {
-		//	Unlocked2 = true;
-		//	UE_LOG(LogTemp, Warning, TEXT("The next item is %s"), *winList[j]->GetName());
-		//}
 		else {
 			UE_LOG(LogTemp, Warning, TEXT("That is the wrong item."));
 		}
