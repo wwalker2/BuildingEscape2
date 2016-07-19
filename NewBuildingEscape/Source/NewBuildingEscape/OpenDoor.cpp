@@ -27,7 +27,7 @@ void UOpenDoor::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%s missing pressure plate"), *GetOwner()->GetName());
 	}
 	/*numOfItems = FMath::RandRange(1, 3);*/
-	numOfItems = 1;
+	numOfItems = 2;
 	UE_LOG(LogTemp, Warning, TEXT("%d is the random number"), numOfItems);
 
 	itemsList.Add(Key1);
@@ -60,7 +60,7 @@ bool UOpenDoor::ItemOnPlate()
 		return Item1();
 		//break;
 	case 2:
-		return false;
+		return Items2();
 		//break;
 	case 3:
 		return false;
@@ -85,6 +85,35 @@ bool UOpenDoor::Item1()
 	}
 
 	return Unlocked1;
+}
+
+bool UOpenDoor::Items2()
+{
+	bool result = false;
+	TArray<AActor*> OverlappingActors;
+	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
+
+	while (OverlappingActors.Num() < numOfItems) {
+		for (int32 i = 0; i < OverlappingActors.Num(); i++)
+		{
+			if (OverlappingActors[i]->GetName().Equals(winList[0]->GetName()) &&
+				OverlappingActors[i]->GetName().Equals(winList[1]->GetName())) {
+				Unlocked1 = true;
+				Unlocked2 = true;
+				UE_LOG(LogTemp, Warning, TEXT("The first item is %s"), *winList[0]->GetName());
+				UE_LOG(LogTemp, Warning, TEXT("The second item is %s"), *winList[1]->GetName());
+			}
+			else {
+				UE_LOG(LogTemp, Warning, TEXT("There are not enough items."));
+			}
+		}
+	}
+
+	if (Unlocked1 == true && Unlocked2 == true) {
+		result = true;
+	}
+
+	return result;
 }
 
 void UOpenDoor::fillWinList()
