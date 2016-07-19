@@ -43,7 +43,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (ItemOnPlate1() == true) {
+	if (ItemOnPlate() == true) {
 		OnOpen.Broadcast();
 	}
 
@@ -52,32 +52,37 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	}
 }
 
-bool UOpenDoor::ItemOnPlate1()
+bool UOpenDoor::ItemOnPlate()
 {
-	bool result = false;
+	switch (numOfItems) {
+	case 1:
+		return Item1();
+		//break;
+	case 2:
+		return false;
+		//break;
+	case 3:
+		return false;
+		//break;
+	default:
+		return false;
+		//break;
+	}
+}
+
+bool UOpenDoor::Item1()
+{
 	TArray<AActor*> OverlappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 
-	for (int32 i = 0; i < OverlappingActors.Num(); i++)
-	{
-		// Add "&& numOfItems >= 1
-		if (OverlappingActors[0]->GetName().Equals(winList[0]->GetName()) && numOfItems >= 1) {
-			Unlocked1 = true;
-			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[0]->GetName());
-		} else if (OverlappingActors[1]->GetName().Equals(winList[1]->GetName()) && numOfItems >= 2) {
-			Unlocked2 = true;
-			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[1]->GetName());
-		} else if (OverlappingActors[2]->GetName().Equals(winList[2]->GetName()) && numOfItems >= 3) {
-			Unlocked3 = true;
-			UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[2]->GetName());
+		for (int32 i = 0; i < OverlappingActors.Num(); i++)
+		{
+			if (OverlappingActors[0]->GetName().Equals(winList[0]->GetName())) {
+				Unlocked1 = true;
+				UE_LOG(LogTemp, Warning, TEXT("The needed item is %s"), *winList[0]->GetName());
+			}
 		}
-		else {
-			UE_LOG(LogTemp, Warning, TEXT("That is the wrong item."));
-		}
-	}
-	//if (Unlocked1 == true && Unlocked2 == true && Unlocked3 == true) {
-	//	result = true;
-	//}
+
 	return Unlocked1;
 }
 

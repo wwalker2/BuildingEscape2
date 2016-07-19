@@ -32,9 +32,6 @@ private:
 	UPROPERTY(EditAnywhere)
 		ATriggerVolume* PressurePlate = nullptr;
 
-	UPROPERTY(EditAnywhere)
-		ATriggerVolume* PressurePlate2 = nullptr;
-
 	UPROPERTY(EditAnywhere, Category = "Keys")
 		AActor* Key1 = nullptr;
 
@@ -46,7 +43,11 @@ private:
 
 	AActor* Owner = nullptr;
 
-	bool ItemOnPlate1();
+	bool ItemOnPlate();
+
+	bool Item1();
+	bool Items2();
+	bool Items3();
 
 	bool Unlocked1 = false;
 	bool Unlocked2 = false;
