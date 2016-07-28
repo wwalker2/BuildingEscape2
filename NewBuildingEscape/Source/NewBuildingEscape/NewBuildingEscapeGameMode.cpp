@@ -3,6 +3,8 @@
 #include "NewBuildingEscape.h"
 #include "NewBuildingEscapeGameMode.h"
 
-
+void ANewBuildingEscapeGameMode::BeginPlay() {
+	Super::BeginPlay();
+}
 
 

@@ -28,6 +28,11 @@ public:
 	UPROPERTY(BlueprintAssignable)
 		FDoorEvent OnClose;
 
+	int32 numOfItems = 0;
+
+	TArray<AActor*> itemsList;
+	TArray<AActor*> winList;
+
 private:
 	UPROPERTY(EditAnywhere)
 		ATriggerVolume* PressurePlate = nullptr;
@@ -54,9 +59,6 @@ private:
 	bool Unlocked2 = false;
 	bool Unlocked3 = false;
 
-	int32 numOfItems = 0;
-	
-	TArray<AActor*> itemsList;
-	TArray<AActor*> winList;
+
 	void fillWinList();
 };
