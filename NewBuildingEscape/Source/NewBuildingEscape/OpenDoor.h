@@ -48,17 +48,19 @@ private:
 
 	AActor* Owner = nullptr;
 
-
+	//Handles what happens when items touch the spotlight.
 	bool ItemOnPlate();
 
+	//Returns true when the specified number of items are on the spot.
 	bool Item1();
 	bool Items2();
 	bool Items3();
 
+	//Returns true if the specified key is on the spot.
 	bool Unlocked1 = false;
 	bool Unlocked2 = false;
 	bool Unlocked3 = false;
 
-
+	//Fills the winList TArray.
 	void fillWinList();
 };
