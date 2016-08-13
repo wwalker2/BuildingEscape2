@@ -5,6 +5,7 @@
 
 void ANewBuildingEscapeGameMode::BeginPlay() {
 	Super::BeginPlay();
+	numOfItems = FMath::RandRange(1, 3);
 }
 
 

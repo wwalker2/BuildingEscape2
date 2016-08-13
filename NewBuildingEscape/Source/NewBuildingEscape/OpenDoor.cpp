@@ -26,8 +26,8 @@ void UOpenDoor::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s missing pressure plate"), *GetOwner()->GetName());
 	}
-	numOfItems = FMath::RandRange(1, 3);
-	//numOfItems = 3;
+	//numOfItems = FMath::RandRange(1, 3);
+	numOfItems;
 	UE_LOG(LogTemp, Warning, TEXT("%d is the random number"), numOfItems);
 
 	itemsList.Add(Key1);

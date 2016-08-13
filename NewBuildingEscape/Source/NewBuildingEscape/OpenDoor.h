@@ -28,6 +28,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 		FDoorEvent OnClose;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Items")
 	int32 numOfItems = 0;
 
 	TArray<AActor*> itemsList;
@@ -63,4 +64,6 @@ private:
 
 	//Fills the winList TArray.
 	void fillWinList();
+
+	ANewBuildingEscapeGameMode* gm = __nullptr;
 };

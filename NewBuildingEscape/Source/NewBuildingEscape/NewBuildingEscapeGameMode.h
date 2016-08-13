@@ -20,4 +20,6 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Items")
 	int32 numOfItems = 0;
 	
+
+
 };
